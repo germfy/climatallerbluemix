@@ -13,13 +13,19 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 var vcap_services = JSON.parse(process.env.VCAP_SERVICES);
 //var wCredentials = vcap_services.weatherinsights[0].credentials;
-var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weatherinsights"][0].credentials.url : "";
+//var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weatherinsights"][0].credentials.url : "";
+var wHost = appEnv.services["weatherinsights"][0].credentials.host;
+var wUsername = appEnv.services["weatherinsights"][0].credentials.username;
+var wPassword = appEnv.services["weatherinsights"][0].credentials.password;
 
 app.get('/weather',function(req,res) {
   var queryStr = url.parse(req.url,true).query;
+  var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m'
   var optionsgetmsg = {
-    host : wCredentialsHost,
+    host : wHost,
     path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
+    port : 443,
+    auth : wUsername + ':' + wPassword,
     //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
     //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,
     method : 'GET',
