@@ -1,4 +1,4 @@
-/var http = require('http');
+var http = require('http');
 var express = require('express');
 var cfenv = require('cfenv');
 var url = require('url');
