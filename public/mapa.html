@@ -1,0 +1,55 @@
+<html>
+	<head>
+	<title>Insights for Weather</title>
+	<link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body>
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyB-Ah6LwCwt2glkXEWia4nmaJNoMxdbJtE"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+	<h1>Condiciones actuales</h1>
+	<table width="560">
+	<tr><td valign="middle">
+	    <p>Lugar: <span id="lugar">buscando...</span></p>
+	    <span id="currentConds"></span>
+	</td>
+	<td valign="middle">
+    	<img id="icon" width="50" height="50" style="{visibility:hidden}">
+	</td></tr>
+    </table>
+    <article></article>
+    <img src="images/ibm-and-twc_v4.png" width="560">
+<script>
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function getWeatherInfo(position) {
+  var s = document.querySelector('#lugar');
+  alert(position.coords.latitude);
+  alert(position.coords.longitude);
+  s.innerHTML = position.coords.latitude + "," + position.coords.longitude;
+  jQuery.ajax({
+    type: "GET",
+    url: "weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (data) {
+      var c=document.querySelector('#currentConds');
+      c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
+      var icon=document.querySelector('#icon');
+      icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
+     },
+     error: function (jqXHR, status1) {
+       document.querySelector('#currentConds').innerHTML = "ERROR "+status1;
+     }
+   });
+ }
+ navigator.geolocation.getCurrentPosition(getWeatherInfo, function () {document.querySelector('#lugar').innerHTML = "ERROR";}, options);
+</script>
+
+</body>
+</html>
