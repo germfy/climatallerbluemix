@@ -18,7 +18,8 @@ var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weat
 app.get('/weather',function(req,res) {
   var queryStr = url.parse(req.url,true).query;
   var optionsgetmsg = {
-    host : wCredentialsHost + '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
+    host : wCredentialsHost,
+    path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
     //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
     //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,
     method : 'GET',
