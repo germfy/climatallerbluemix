@@ -26,6 +26,7 @@ app.get('/weather',function(req,res) {
     host : wHost,
     path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
     port : 443,
+    protocol: 'https'
     auth : wUsername + ':' + wPassword,
     //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
     //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,
