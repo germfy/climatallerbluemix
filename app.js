@@ -17,8 +17,9 @@ var vcap_services = JSON.parse(process.env.VCAP_SERVICES);
 var wHost = appEnv.services["weatherinsights"][0].credentials.host;
 var wUsername = appEnv.services["weatherinsights"][0].credentials.username;
 var wPassword = appEnv.services["weatherinsights"][0].credentials.password;
-console.log(wHost +" "+ wUsername +" "+ wPassword);
+
 app.get('/weather',function(req,res) {
+  console.log(wHost +" "+ wUsername +" "+ wPassword);
   var queryStr = url.parse(req.url,true).query;
   //var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m'
   var optionsgetmsg = {
