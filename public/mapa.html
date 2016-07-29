@@ -44,7 +44,7 @@ function getWeatherInfo(position) {
       icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
      },
      error: function (jqXHR, status1) {
-       document.querySelector('#currentConds').innerHTML = "ERROR "+status1;
+       document.querySelector('#currentConds').innerHTML = "ERROR "+ status1;
      }
    });
  }
