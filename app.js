@@ -1,4 +1,5 @@
-var http = require('http');
+//var http = require('http');
+var request = require('request');
 var express = require('express');
 var cfenv = require('cfenv');
 var url = require('url');
@@ -23,7 +24,7 @@ app.get('/weather',function(req,res) {
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
   console.log(urlweather);
-  var optionsgetmsg = {
+  request({
     url : urlweather,
     /*host : wHost,
     path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
@@ -32,6 +33,38 @@ app.get('/weather',function(req,res) {
     auth : wUsername + ':' + wPassword,
     //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
     //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,*/
+    method : 'GET',
+    headers : {
+      "Content-Type": "application/json;charset=utf-8",
+      "Accept": "application/json"
+    }
+  }, function(err, req, data){
+    if(err){
+      done(err);
+    } else {
+      if (req.statusCode >= 200 && req.statusCode < 400) {
+                try {
+                    done(null, JSON.parse(data));
+                } catch(e) {
+                    console.log(e);
+                    done(e);
+                }
+            } else {
+                console.log(err);
+                done({ message: req.statusCode, data: data });
+            }
+    }
+  });
+
+/*  var optionsgetmsg = {
+    url : urlweather,
+    /*host : wHost,
+    path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
+    port : 443,
+    protocol: 'https:',
+    auth : wUsername + ':' + wPassword,
+    //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
+    //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,*
     method : 'GET',
     headers : {
       "Content-Type": "application/json;charset=utf-8",
@@ -50,7 +83,7 @@ app.get('/weather',function(req,res) {
   reqGet.end();
   reqGet.on('error', function(e) {
     console.error(e);
-  });
+  });*/
 });
 
 
