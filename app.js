@@ -40,6 +40,7 @@ app.get('/weather',function(req,res, done) {
     }
   }, function(err, req, data){
     if(err){
+      console.log(err);
       done(err);
     } else {
       if (req.statusCode >= 200 && req.statusCode < 400) {
