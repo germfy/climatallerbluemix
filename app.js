@@ -24,7 +24,7 @@ app.get('/weather',function(req,res, done) {
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
   console.log(urlweather);
-  request({
+  res.json(request({
     url : urlweather,
     /*host : wHost,
     path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
@@ -58,7 +58,7 @@ app.get('/weather',function(req,res, done) {
         done({ message: req.statusCode, data: data });
       }
     }
-  });
+  }));
 
 /*  var optionsgetmsg = {
     url : urlweather,
