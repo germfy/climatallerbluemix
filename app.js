@@ -40,17 +40,20 @@ app.get('/weather',function(req,res, done) {
     }
   }, function(err, req, data){
     if(err){
-      console.log(err);
+      console.log("Primer console log" + err);
       done(err);
     } else {
       if (req.statusCode >= 200 && req.statusCode < 400) {
                 try {
+                    console.log("Console log, dentro de if " + req.statusCode);
                     done(null, JSON.parse(data));
                 } catch(e) {
+                      console.log("Console log, dentro de else ");
                     console.log(e);
                     done(e);
                 }
       } else {
+        console.log("Console log final " + req.statusCode);
         console.log(err);
         done({ message: req.statusCode, data: data });
       }
