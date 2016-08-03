@@ -37,7 +37,8 @@ function getWeatherInfo(position) {
     dataType: "json",
     success: function (data) {
       var c=document.querySelector('#currentConds');
-      c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
+			c.innerHTML = data;
+      //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
       var icon=document.querySelector('#icon');
       icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
      },
