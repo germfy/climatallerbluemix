@@ -32,6 +32,7 @@ app.get('/weather',function(req,res, done) {
       console.log("error " + err);
       done(err);
     }else{
+      var data = body.observations;
       done({ message: req.statusCode, data: data });
     }
   });
