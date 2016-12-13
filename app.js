@@ -29,7 +29,7 @@ app.get('/weather',function(req,res, done) {
     "Accept": "application/json"
   }}, function(err, response, body){
     if(err){
-      console.log("error " + err);
+      console.log("error " + json.stringify(err));
       done(err);
     }else{
       var data = body.observations;
