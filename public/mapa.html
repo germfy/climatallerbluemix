@@ -39,8 +39,8 @@ function getWeatherInfo(position) {
       var c=document.querySelector('#currentConds');
 			c.innerHTML = data.observation.temp;
       //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
-      var icon=document.querySelector('#icon');
-      icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
+      //var icon=document.querySelector('#icon');
+      //icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
      },
      error: function (jqXHR, status1) {
        document.querySelector('#currentConds').innerHTML = "ERROR "+ status1;

@@ -23,8 +23,20 @@ app.get('/weather',function(req,res, done) {
   //console.log(wHost +" "+ wUsername +" "+ wPassword);
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
-  console.log(urlweather);
-  res.json(request({
+  console.log("urlweather" + urlweather);
+  request({url : urlweather,method : 'GET',headers : {
+    "Content-Type": "application/json;charset=utf-8",
+    "Accept": "application/json"
+  }}, function(err, response, body){
+    if(err){
+      console.log("error " + err);
+      done(err);
+    }else{
+      done({ message: req.statusCode, data: data });
+    }
+  });
+});
+/*  res.json(request({
     url : urlweather,
     /*host : wHost,
     path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
@@ -33,7 +45,7 @@ app.get('/weather',function(req,res, done) {
     auth : wUsername + ':' + wPassword,
     //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
     //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,*/
-    method : 'GET',
+/*    method : 'GET',
     headers : {
       "Content-Type": "application/json;charset=utf-8",
       "Accept": "application/json"
@@ -88,8 +100,8 @@ app.get('/weather',function(req,res, done) {
   reqGet.end();
   reqGet.on('error', function(e) {
     console.error(e);
-  });*/
-});
+  });*
+});*/
 
 
 // start server on the specified port and binding host
