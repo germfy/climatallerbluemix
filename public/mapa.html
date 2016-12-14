@@ -19,7 +19,7 @@
 	</td></tr>
     </table>
     <article></article>
-    <img src="images/ibm-and-twc_v4.png" width="560">
+    <!--img src="images/ibm-and-twc_v4.png" width="560"-->
 <script>
 var options = {
   enableHighAccuracy: true,
@@ -37,7 +37,7 @@ function getWeatherInfo(position) {
     dataType: "json"})
     .done(function (data) {
       var c=document.querySelector('#currentConds');
-			c.innerHTML = data;
+			c.innerHTML = data.observation.temp + "C" + data.observation.wx_phrase;
       //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
       //var icon=document.querySelector('#icon');
       //icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
