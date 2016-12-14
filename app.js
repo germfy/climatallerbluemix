@@ -24,10 +24,12 @@ app.get('/weather',function(req,res, done) {
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
   console.log("urlweather" + urlweather);
-  request({url : urlweather,method : 'GET',headers : {
+  var jsonrequest = {url : urlweather, method : 'GET', headers : {
     "Content-Type": "application/json;charset=utf-8",
     "Accept": "application/json"
-  }}, function(err, response, body){
+  }};
+  console.log("JsonRequest" + jsonrequest);
+  request(jsonrequest, function(err, response, body){
     if(err){
       console.log("error " + json.stringify(err));
       done(err);
