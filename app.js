@@ -19,7 +19,7 @@ var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weat
 var wUsername = appEnv.services["weatherinsights"][0].credentials.username;
 var wPassword = appEnv.services["weatherinsights"][0].credentials.password;*/
 
-app.get('/weather',function(req,res, done) {
+app.get('/weather',function(req,res) {
   //console.log(wHost +" "+ wUsername +" "+ wPassword);
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
@@ -36,12 +36,12 @@ app.get('/weather',function(req,res, done) {
   request(jsonrequest, function(error, response, body){
     if(error && response.statusCode !=200){
       console.log("error " + JSON.stringify(err));
-      done(err.message);
+      res.send(err.message);
     }else{
       console.log("Dentro de no error " + JSON.stringify(response));
       console.log("Dentro de no error 2 " + JSON.stringify(body));
       var data = body.observation;
-      done({ message: response.statusCode, data: data });
+      res.json({ message: response.statusCode, data: data });
     }
   });
 });
