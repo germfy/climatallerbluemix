@@ -28,10 +28,10 @@ app.get('/weather',function(req,res, done) {
     "Content-Type": "application/json;charset=utf-8",
     "Accept": "application/json"
   }};
-  console.log("JsonRequest" + json.parse(jsonrequest));
+  console.log("JsonRequest" + JSON.stringify(jsonrequest));
   request(jsonrequest, function(err, response, body){
     if(err){
-      console.log("error " + err.message);
+      console.log("error " + JSON.stringify(err));
       done(err.message);
     }else{
       var data = body.observations;
