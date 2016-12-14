@@ -34,14 +34,14 @@ app.get('/weather',function(req,res, done) {
   };
   console.log("JsonRequest" + JSON.stringify(jsonrequest));
   request(jsonrequest, function(error, response, body){
-    if(error){
+    if(error && response.statusCode !=200){
       console.log("error " + JSON.stringify(err));
       done(err.message);
     }else{
       console.log("Dentro de no error " + JSON.stringify(response));
       console.log("Dentro de no error 2 " + JSON.stringify(body));
-      var data = body.observations;
-      done({ message: req.statusCode, data: data });
+      var data = body.observation;
+      done({ message: response.statusCode, data: data });
     }
   });
 });
