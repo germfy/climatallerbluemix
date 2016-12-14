@@ -38,10 +38,9 @@ app.get('/weather',function(req,res) {
       console.log("error " + JSON.stringify(err));
       res.send(err.message);
     }else{
-      console.log("Dentro de no error " + JSON.stringify(response));
-      console.log("Dentro de no error 2 " + JSON.stringify(body));
-      var data = body.observation;
-      res.json({ message: response.statusCode, data: data });
+      //console.log("Dentro de no error " + JSON.stringify(response));
+      //console.log("Dentro de no error 2 " + JSON.stringify(body));
+      res.json({ message: response.statusCode, data: body });
     }
   });
 });
