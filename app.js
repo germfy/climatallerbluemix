@@ -31,7 +31,7 @@ app.get('/weather',function(req,res, done) {
   console.log("JsonRequest" + jsonrequest);
   request(jsonrequest, function(err, response, body){
     if(err){
-      console.log("error " + json.stringify(err));
+      console.log("error " + err.message);
       done(err);
     }else{
       var data = body.observations;
