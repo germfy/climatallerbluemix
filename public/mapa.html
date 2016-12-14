@@ -37,7 +37,7 @@ function getWeatherInfo(position) {
     dataType: "json"})
     .done(function (data) {
       var c=document.querySelector('#currentConds');
-			var datos = $.parseJSON(data);
+			var datos = jQuery.parseJSON(data);
 			c.innerHTML = datos.observation.temp + "C" + datos.observation.wx_phrase;
       //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
       //var icon=document.querySelector('#icon');
