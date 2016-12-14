@@ -40,7 +40,7 @@ app.get('/weather',function(req,res) {
     }else{
       //console.log("Dentro de no error " + JSON.stringify(response));
       //console.log("Dentro de no error 2 " + JSON.stringify(body));
-      res.json({ message: response.statusCode, data: body });
+      res.json({ message: response.statusCode, data: JSON.parse(body)});
     }
   });
 });
