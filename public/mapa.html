@@ -34,19 +34,19 @@ function getWeatherInfo(position) {
     type: "GET",
     url: "weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude,
     contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (data) {
+    dataType: "json"})
+    .done(function (data) {
       var c=document.querySelector('#currentConds');
 			c.innerHTML = data;
       //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
       //var icon=document.querySelector('#icon');
       //icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
-     },
-     error: function (jqXHR, status1) {
+		});
+    .fail(function (jqXHR, status1) {
        document.querySelector('#currentConds').innerHTML = "ERROR "+ status1;
      }
-   });
- }
+   );
+ };
  navigator.geolocation.getCurrentPosition(getWeatherInfo, function () {document.querySelector('#lugar').innerHTML = "ERROR";}, options);
 </script>
 
