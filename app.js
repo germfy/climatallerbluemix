@@ -1,4 +1,5 @@
 var watson = require('watson-developer-cloud');
+var Cloudant = require('cloudant');
 var request = require('request');
 var express = require('express');
 var cfenv = require('cfenv');
@@ -62,6 +63,17 @@ app.get('/weather',function(req,res) {
     }else{
       //console.log("Dentro de no error " + JSON.stringify(response));
       //console.log("Dentro de no error 2 " + JSON.stringify(body));
+      var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
+      var cldntUrl = cldntService.credentials.url;
+      var cloudant = Cloudant(cldntUrl);
+      var db = cloudant.db.use("climataller");
+      db.insert({registroclima:JSON.parse(body)}, function(err, body){
+          if (err){
+            console.log(err);
+          }else{
+            console.log(body);
+          }
+      });
       res.json({ message: response.statusCode, data: JSON.parse(body)});
     }
   });

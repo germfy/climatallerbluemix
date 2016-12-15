@@ -3,9 +3,10 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: climaarmando
-  host: climaarmando
+  name: climatallergdominguez
+  host: climatallergdominguez
   disk_quota: 1024M
   services:
   - Weather Company Data for IBM Bluemix-to
   - Texto a voz-ut
+  - gfycloudantjs-cloudantNoSQLDB
