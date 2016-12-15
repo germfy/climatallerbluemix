@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "ngGeolocation": ">=0.0.2"
+    }
+}
