@@ -13,6 +13,29 @@ app.use(express.static(__dirname + '/public'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 var vcap_services = JSON.parse(process.env.VCAP_SERVICES);
+/*var vcap_services = {
+  "weatherinsights": [
+    {
+      "credentials": {
+        "username": "529ce117-3eaa-4654-b325-e192143c8314",
+        "password": "HKVaFNTyPG",
+        "host": "twcservice.mybluemix.net",
+        "port": 443,
+        "url": "https://529ce117-3eaa-4654-b325-e192143c8314:HKVaFNTyPG@twcservice.mybluemix.net"
+      },
+      "syslog_drain_url": null,
+      "label": "weatherinsights",
+      "provider": null,
+      "plan": "Free-v2",
+      "name": "Weather Company Data for IBM Bluemix-to",
+      "tags": [
+        "big_data",
+        "ibm_created",
+        "ibm_dedicated_public"
+      ]
+    }
+  ]
+};*/
 //var wCredentials = vcap_services.weatherinsights[0].credentials;
 var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weatherinsights"][0].credentials.url : "";
 /*var wHost = appEnv.services["weatherinsights"][0].credentials.host;

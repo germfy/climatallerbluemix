@@ -1,20 +1,24 @@
-var reporteClima = angular.module('reporteClima', ['ngGeolocation']);
+var reporteClima = angular.module('reporteClima', []);
 
-function mainController($scope, $http, $geolocation){
-  $scope.formData = {};
-  $geolocation.getCurrentPosition({
-    timeout: 60000,
-    maximumAge: 250,
-    enableHighAccuracy: true
-  });
-  console.log($geolocation.position.coords);
-  $http.get("/weather?weather?lat=" + $geolocation.position.coords.latitude + "&lon=" + $geolocation.position.coords.longitude)
-      .success(function(data){
-        $scope.resultados = data;
-        console.log(data);
-      })
-      .error(function(data){
-        console.log('Error: ' + data);
+reporteClima.controller('mainController',function($scope, $http){
+  //$scope.formData = {};
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      $scope.$apply(function(){
+        console.log(position);
+        $scope.position = position;
+        $http.get("/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude)
+            .success(function(data){
+              $scope.resultados = data;
+              console.log(data);
+            })
+            .error(function(data){
+              console.log('Error: ' + data);
+            });
       });
+    });
+  }
+  //console.log($scope.position);
 
-}
+
+})
