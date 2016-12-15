@@ -1,13 +1,18 @@
-var reporteSentimiento = angular.module('reporteSentimiento', []);
+var reporteSentimiento = angular.module('reporteClima', ['ngGeolocation']);
 
-function mainController($scope,$http){
+function mainController($scope,$http,$geolocation){
   $scope.formData = {};
-  $http.get("/generareporte?reporte=SentimentAnalisys&estado=CDMX")
-    .success(function(data){
-      $scope.resultados = data;
-      console.log(data);
-    })
-    .error(function(data){
-      console.log('Error: ' + data);
-    });
+  $geolocation.getCurrentPosition({
+    timeout: 60000
+  }).then(function(position){
+    $http.get("/weather?weather?lat=" + position.latitude + "&lon=" + position.longitude)
+      .success(function(data){
+        $scope.resultados = data;
+        console.log(data);
+      })
+      .error(function(data){
+        console.log('Error: ' + data);
+      });
+  });
+
 }
