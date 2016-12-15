@@ -3,8 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"prepublish": "node_modules/bin/bower install",
-		"start": "node app.js"
+		"start": "node app.js",
+		"postinstall": "bower install --allow-root --config.interactive=false"
 	},
 	"dependencies": {
 		"express": "4.13.x",
