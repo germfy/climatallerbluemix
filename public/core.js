@@ -2,10 +2,13 @@ var reporteClima = angular.module('reporteClima', ['ngGeolocation']);
 
 function mainController($scope, $http, $geolocation){
   $scope.formData = {};
-  $geolocation.getCurrentPosition({
-    timeout: 60000
-  }).then(function(position){
-    $http.get("/weather?weather?lat=" + position.latitude + "&lon=" + position.longitude)
+  $geolocation.watchPosition({
+    timeout: 60000,
+    maximumAge: 250,
+    enableHighAccuracy: true
+  });
+  console.log($geolocation.position);
+  $http.get("/weather?weather?lat=" + $geolocation.position.latitude + "&lon=" + $geolocation.position.longitude)
       .success(function(data){
         $scope.resultados = data;
         console.log(data);
