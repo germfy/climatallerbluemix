@@ -17,16 +17,18 @@
 
 <body ng-controller="mainController">
 
-	<div class="container">
-	   <h1 class="text-center">Condiciones actuales</h1>
-	   <div ng-show="datosCargados">
-           Latitud: {{position.coords.latitude}}
-           Longitud: {{position.coords.longitude}}
-
-           La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
-	   </div>
-	   <div ng-hide="datosCargados" class="blink">
-           Buscando...
+	<div class="container panel panel-default">
+	   <div class="text-center panel-heading">Condiciones actuales</div>
+        <div class="panel-body">
+	       <div ng-show="datosCargados">
+               Latitud: {{position.coords.latitude}}
+               Longitud: {{position.coords.longitude}}
+               <br>
+            La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
+            </div>
+	       <div ng-hide="datosCargados" class="blink">
+               Buscando...
+            </div>
         </div>
     </div>
 </body>
