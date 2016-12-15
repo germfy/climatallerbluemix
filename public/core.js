@@ -1,10 +1,11 @@
 var reporteClima = angular.module('reporteClima', []);
 
 reporteClima.controller('mainController',function($scope, $http){
-  //$scope.formData = {};
+  $scope.datosCargados = false;
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
       $scope.$apply(function(){
+        $scope.datosCargados = true;
         console.log(position);
         $scope.position = position;
         $http.get("/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude)
