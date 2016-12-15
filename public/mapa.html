@@ -18,18 +18,19 @@
 <body ng-controller="mainController">
 
 	<div class="container">
-	<h1 class="text-center">Condiciones actuales</h1>
-	<div ng-show="datosCargados">
-		Latitud: {{position.coords.latitude}}
-		Longitud: {{position.coords.longitude}}
+	   <h1 class="text-center">Condiciones actuales</h1>
+	   <div ng-show="datosCargados">
+           Latitud: {{position.coords.latitude}}
+           Longitud: {{position.coords.longitude}}
 
-		La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
-	</div>
-	<div ng-hide="datosCargados" class="blink">
-        Buscando...
+           La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
+	   </div>
+	   <div ng-hide="datosCargados" class="blink">
+           Buscando...
+        </div>
     </div>
-    <article></article>
-    </div>
+</body>
+</html>
     <!--img src="images/ibm-and-twc_v4.png" width="560"-->
 <!--script>
 var options = {
@@ -61,6 +62,3 @@ function getWeatherInfo(position) {
  };
  navigator.geolocation.getCurrentPosition(getWeatherInfo, function () {document.querySelector('#lugar').innerHTML = "ERROR";}, options);
 </script-->
-
-</body>
-</html>

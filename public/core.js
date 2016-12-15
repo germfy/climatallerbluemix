@@ -1,7 +1,7 @@
 var reporteClima = angular.module('reporteClima', []);
 
 reporteClima.controller('mainController',function($scope, $http){
-  $scope.datosCargados = false;
+  //$scope.datosCargados = false;
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
       $scope.$apply(function(){
