@@ -25,11 +25,11 @@
                Latitud: {{position.coords.latitude}}
                Longitud: {{position.coords.longitude}}
                 <div class="panel-info text-center">
-                    La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
+                    <h2>La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}</h2>
                 </div>
             </div>
 	       <div ng-hide="datosCargados" class="blink">
-               Buscando...
+               <h2>Buscando...</h2>
             </div>
         </div>
     </div>
