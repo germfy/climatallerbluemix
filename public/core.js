@@ -24,7 +24,7 @@ reporteClima.controller('mainController',function($scope, $http){
     });
   }
   //console.log($scope.position);
-
+})
   function initMediaObject(theFile){
       // HTML5 Audio
       if (typeof Audio != "undefined") {
@@ -53,4 +53,3 @@ reporteClima.controller('mainController',function($scope, $http){
          //console.log("Media: " + JSON.stringify(theMedia));
         };
       };
-})
