@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"prestart": "bower install",
 		"start": "node app.js"
 	},
 	"dependencies": {
@@ -14,5 +15,5 @@
 	"repository": {},
 	"engines": {
 		"node": "4.x"
-	} 
+	}
 }

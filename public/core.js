@@ -1,6 +1,6 @@
 var reporteClima = angular.module('reporteClima', ['ngGeolocation']);
 
-function mainController($scope,$http,$geolocation){
+function mainController($scope, $http, $geolocation){
   $scope.formData = {};
   $geolocation.getCurrentPosition({
     timeout: 60000
