@@ -1,4 +1,4 @@
-var reporteSentimiento = angular.module('reporteClima', ['ngGeolocation']);
+var reporteClima = angular.module('reporteClima', ['ngGeolocation']);
 
 function mainController($scope,$http,$geolocation){
   $scope.formData = {};
