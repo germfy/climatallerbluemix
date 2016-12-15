@@ -67,7 +67,7 @@ app.get('/weather',function(req,res) {
   });
 });
 
-router.get('/voz', function(req, res, next){
+app.get('/voz', function(req, res, next){
 	var appEnv = cfenv.getAppEnv();
 	var appService = appEnv.getService("Texto a voz-ut");
 
