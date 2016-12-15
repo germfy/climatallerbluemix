@@ -36,14 +36,13 @@ var vcap_services = JSON.parse(process.env.VCAP_SERVICES);
     }
   ]
 };*/
-//var wCredentials = vcap_services.weatherinsights[0].credentials;
-var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weatherinsights"][0].credentials.url : "";
-/*var wHost = appEnv.services["weatherinsights"][0].credentials.host;
-var wUsername = appEnv.services["weatherinsights"][0].credentials.username;
-var wPassword = appEnv.services["weatherinsights"][0].credentials.password;*/
+
+
+
 
 app.get('/weather',function(req,res) {
   //console.log(wHost +" "+ wUsername +" "+ wPassword);
+  var wCredentialsHost = appEnv.services["weatherinsights"]? appEnv.services["weatherinsights"][0].credentials.url : "";
   var queryStr = url.parse(req.url,true).query;
   var urlweather = wCredentialsHost + '/api/weather/v1/geocode/'+parseFloat(queryStr.lat)+'/'+parseFloat(queryStr.lon)+'/observations.json?language=es-MX&units=m'
   console.log("urlweather" + urlweather);
@@ -67,73 +66,38 @@ app.get('/weather',function(req,res) {
     }
   });
 });
-/*  res.json(request({
-    url : urlweather,
-    /*host : wHost,
-    path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
-    port : 443,
-    protocol: 'https:',
-    auth : wUsername + ':' + wPassword,
-    //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
-    //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,*/
-/*    method : 'GET',
-    headers : {
-      "Content-Type": "application/json;charset=utf-8",
-      "Accept": "application/json"
-    }
-  }, function(err, req, data){
-    if(err){
-      console.log("Primer console log" + err);
-      done(err);
-    } else {
-      if (req.statusCode >= 200 && req.statusCode < 400) {
-                try {
-                    console.log("Console log, dentro de if " + req.statusCode);
-                    //done(null, JSON.parse(data));
-                    res.json(JSON.parse(data));
-                } catch(e) {
-                      console.log("Console log, dentro de else ");
-                    console.log(e);
-                    done(e);
-                }
-      } else {
-        console.log("Console log final " + req.statusCode);
-        console.log(err);
-        done({ message: req.statusCode, data: data });
-      }
-    }
-  }));
 
-/*  var optionsgetmsg = {
-    url : urlweather,
-    /*host : wHost,
-    path : '/api/weather/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json?language=es-MX&units=m',
-    port : 443,
-    protocol: 'https:',
-    auth : wUsername + ':' + wPassword,
-    //path: '/v1/geocode/'+queryStr.lat+'/'+queryStr.lon+'/observations.json',
-    //path : '/api/weather/v2/observations/current?units=m&language=es-MX&geocode='+ queryStr.latlon,*
-    method : 'GET',
-    headers : {
-      "Content-Type": "application/json;charset=utf-8",
-      "Accept": "application/json"
-    }
-  };
-  var reqGet = http.request(optionsgetmsg, function(res1) {
-    var cond="";
-    res1.on('data', function(d) {
-      cond+=d;
-    });
-    res1.on('end', function() {
-      res.json(JSON.parse(cond));
-    });
-  });
-  reqGet.end();
-  reqGet.on('error', function(e) {
-    console.error(e);
-  });*
-});*/
+router.get('/voz', function(req, res, next){
+	var appEnv = cfenv.getAppEnv();
+	var appService = appEnv.getService("Texto a voz-ut");
 
+	var url = appService.credentials.url;
+	var username = appService.credentials.username;
+	var password = appService.credentials.password;
+
+	var texttospeech = watson.text_to_speech({
+		version:'v1',
+		username: username,
+		password: password
+	});
+
+	console.log("Dentro de voz");
+	console.log(req.query);
+	var transcript = texttospeech.synthesize({text:req.query.texto, voice:"es-ES_EnriqueVoice", accept:"audio/wav"});
+
+	transcript.on('response', function(response) {
+		    if (req.query.download) {
+					response.headers['Access-Control-Allow-Origin'] = '*';
+		      response.headers['content-disposition'] = 'attachment; filename=audio.wav';
+
+		    }
+		  });
+		  transcript.on('error', function(error) {
+			  next(error);
+		  });
+			res.setHeader("Access-Control-Allow-Origin", "*");
+		  transcript.pipe(res);
+});
 
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {
