@@ -1,7 +1,7 @@
 applications:
 - path: .
-  memory: 256M
-  instances: 1
+  memory: 512M
+  instances: 2
   domain: mybluemix.net
   name: climatallergdominguez
   host: climatallergdominguez
@@ -9,3 +9,4 @@ applications:
   services:
   - Weather Company Data for IBM Bluemix-to
   - Texto a voz-ut
+  - gfycloudantjs-cloudantNoSQLDB
