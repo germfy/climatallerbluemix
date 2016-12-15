@@ -16,15 +16,17 @@
 </head>
 
 <body ng-controller="mainController">
-
 	<div class="container panel panel-default">
-	   <div class="text-center panel-heading">Condiciones actuales</div>
+	   <div class="text-center panel-heading">
+           <h1>Condiciones actuales</h1>
+        </div>
         <div class="panel-body">
-	       <div ng-show="datosCargados">
+	       <div ng-show="datosCargados" class="text-center">
                Latitud: {{position.coords.latitude}}
                Longitud: {{position.coords.longitude}}
-               <br>
-            La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
+                <div class="panel-info text-center">
+                    La temperatura actual es: {{resultados.data.observation.temp}} ºC con un cielo {{resultados.data.observation.wx_phrase}}
+                </div>
             </div>
 	       <div ng-hide="datosCargados" class="blink">
                Buscando...
@@ -33,34 +35,4 @@
     </div>
 </body>
 </html>
-    <!--img src="images/ibm-and-twc_v4.png" width="560"-->
-<!--script>
-var options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
 
-function getWeatherInfo(position) {
-  var s = document.querySelector('#lugar');
-  s.innerHTML = position.coords.latitude + "," + position.coords.longitude;
-  jQuery.ajax({
-    type: "GET",
-    url: "weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude,
-    contentType: "application/json; charset=utf-8",
-    dataType: "json"})
-    .done(function (data) {
-      var c=document.querySelector('#currentConds');
-			var datos = jQuery.parseJSON(data);
-			c.innerHTML = datos.observation.temp + "C" + datos.observation.wx_phrase;
-      //c.innerHTML = data.observation.metric.temp+"°C " + data.observation.sky_cover;
-      //var icon=document.querySelector('#icon');
-      //icon.setAttribute("src", "http://clima.mybluemix.net/images/icon" + data.observation.icon_code + ".png");
-		})
-    .fail(function (jqXHR, status1) {
-       document.querySelector('#currentConds').innerHTML = "ERROR "+ status1;
-     }
-   );
- };
- navigator.geolocation.getCurrentPosition(getWeatherInfo, function () {document.querySelector('#lugar').innerHTML = "ERROR";}, options);
-</script-->
