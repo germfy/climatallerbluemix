@@ -1,4 +1,4 @@
-//var http = require('http');
+var watson = require('watson-developer-cloud');
 var request = require('request');
 var express = require('express');
 var cfenv = require('cfenv');
