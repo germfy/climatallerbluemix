@@ -8,9 +8,10 @@ reporteClima.controller('mainController',function($scope, $http){
         console.log(position);
         $scope.position = position;
         $http.get("/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude)
-            .success(function(data){
+          .success(function(data){
               $scope.resultados = data;
-              console.log(data);
+              //console.log(data);
+              console.log($scope)
             })
             .error(function(data){
               console.log('Error: ' + data);
