@@ -16,6 +16,5 @@ function mainController($scope, $http, $geolocation){
       .error(function(data){
         console.log('Error: ' + data);
       });
-  });
 
 }
