@@ -5,7 +5,7 @@ var url = require('url');
 var watson = require('watson-developer-cloud');
 var Cloudant = require('cloudant');
 
-// create a new express server
+// create a new express server cambio
 var app = express();
 
 // serve the files out of ./public as our main files
