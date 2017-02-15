@@ -69,7 +69,7 @@ app.get('/voz', function(req, res, next){
 
 	console.log("Dentro de voz");
 	console.log(req.query);
-	var transcript = texttospeech.synthesize({text:req.query.texto, voice:"es-ES_EnriqueVoice", accept:"audio/wav"});
+	var transcript = texttospeech.synthesize({text:req.query.texto, voice:"es-US_SofiaVoice", accept:"audio/wav"});
 
 	transcript.on('response', function(response) {
 		    if (req.query.download) {
