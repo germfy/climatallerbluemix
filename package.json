@@ -11,8 +11,7 @@
 		"cfenv": "1.0.x",
 		"request": "*",
 		"bower": "*",
-		"watson-developer-cloud": "*",
-		"cloudant": "*"
+		
 
 	},
 	"repository": {},
