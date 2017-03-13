@@ -2,6 +2,10 @@ var request = require('request');
 var express = require('express');
 var cfenv = require('cfenv');
 var url = require('url');
+var watson = require('watson-developer-cloud');
+var Cloudant = require('cloudant');
+
+
 
 // create a new express server cambio
 var app = express();
@@ -36,12 +40,54 @@ app.get('/weather',function(req,res) {
       //console.log("Dentro de no error " + JSON.stringify(response));
       //console.log("Dentro de no error 2 " + JSON.stringify(body));
 
+      var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
+      var cldntUrl = cldntService.credentials.url;
+      var cloudant = Cloudant(cldntUrl);
+      var db = cloudant.db.use("climataller");
+      db.insert({registroclima:JSON.parse(body)}, function(err, body){
+          if (err){
+            console.log(err);
+          }else{
+            console.log(body);
+          }
+      });
+
       res.json({ message: response.statusCode, data: JSON.parse(body)});
     }
   });
 });
 
+app.get('/voz', function(req, res, next){
+	var appEnv = cfenv.getAppEnv();
+	var appService = appEnv.getService("Texto a voz-ut");
 
+	var url = appService.credentials.url;
+	var username = appService.credentials.username;
+	var password = appService.credentials.password;
+
+	var texttospeech = watson.text_to_speech({
+		version:'v1',
+		username: username,
+		password: password
+	});
+
+	console.log("Dentro de voz");
+	console.log(req.query);
+	var transcript = texttospeech.synthesize({text:req.query.texto, voice:"es-ES_EnriqueVoice", accept:"audio/wav"});
+
+	transcript.on('response', function(response) {
+		    if (req.query.download) {
+					response.headers['Access-Control-Allow-Origin'] = '*';
+		      response.headers['content-disposition'] = 'attachment; filename=audio.wav';
+
+		    }
+		  });
+		  transcript.on('error', function(error) {
+			  next(error);
+		  });
+			res.setHeader("Access-Control-Allow-Origin", "*");
+		  transcript.pipe(res);
+});
 
 
 // start server on the specified port and binding host
