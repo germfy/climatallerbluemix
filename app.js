@@ -14,6 +14,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 // get the app environment from Cloud Foundry
+// Texto prueba
 var appEnv = cfenv.getAppEnv();
 
 
