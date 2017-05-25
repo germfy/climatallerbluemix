@@ -58,37 +58,7 @@ app.get('/weather',function(req,res) {
   });
 });
 
-app.get('/voz', function(req, res, next){
-	var appEnv = cfenv.getAppEnv();
-	var appService = appEnv.getService("Texto a voz-ut");
-
-	var url = appService.credentials.url;
-	var username = appService.credentials.username;
-	var password = appService.credentials.password;
-
-	var texttospeech = watson.text_to_speech({
-		version:'v1',
-		username: username,
-		password: password
-	});
-
-	console.log("Dentro de voz");
-	console.log(req.query);
-	var transcript = texttospeech.synthesize({text:req.query.texto, voice:"es-ES_EnriqueVoice", accept:"audio/wav"});
-
-	transcript.on('response', function(response) {
-		    if (req.query.download) {
-					response.headers['Access-Control-Allow-Origin'] = '*';
-		      response.headers['content-disposition'] = 'attachment; filename=audio.wav';
-
-		    }
-		  });
-		  transcript.on('error', function(error) {
-			  next(error);
-		  });
-			res.setHeader("Access-Control-Allow-Origin", "*");
-		  transcript.pipe(res);
-});
+//aqui va el codigo de voz
 
 
 // start server on the specified port and binding host
